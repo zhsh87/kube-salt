@@ -6,6 +6,8 @@ while true; do
     get /coreos.com/network/config >/dev/null 2>&1
   if [[ "$?" == 0 ]]; then
     break
+  elif  [ ! -e /opt/kubernetes/bin/etcdctl ]; then
+    break
   else
     if (( attempt > 20 )); then
       echo "timeout for waiting network config" > /opt/kubernetes/log/flannel-error.log
